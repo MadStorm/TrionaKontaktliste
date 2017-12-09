@@ -1,4 +1,4 @@
-package com.youtube.rest.status;
+package com.triona.kontaktliste;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -56,9 +56,7 @@ public class RestAPI {
     		@FormParam("phone") String phone) {
 		
 		Controller controller = new Controller(new Contact(), new View());
-		controller.setName(name);
-		controller.setAddress(address);
-		controller.setPhone(phone);
+		controller.addContact(name, address, phone);
 		
 		controller.updateView();
     }	

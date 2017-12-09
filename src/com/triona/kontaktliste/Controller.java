@@ -1,15 +1,18 @@
-package com.youtube.rest.status;
+package com.triona.kontaktliste;
 
 import model.Contact;
+import model.SaveAndLoad;
 
 public class Controller {
 
 	private Contact model;
 	private View view;
+	private SaveAndLoad saveAndLoad;
 	
 	public Controller(Contact model, View view){
 		this.model = model;
 		this.view = view;
+		saveAndLoad = new SaveAndLoad();
 	}
 	
 	public String getName() {
@@ -38,6 +41,14 @@ public class Controller {
 	
 	public void updateView(){
 		view.printContactDetails(model.getName(), model.getAddress(), model.getPhone());
+	}
+	
+	public void addContact(String name, String address, String phone){
+		model.setName(name);
+		model.setAddress(address);
+		model.setPhone(phone);
+		
+		saveAndLoad.writeToFile(name, address, phone);
 	}
 	
 }

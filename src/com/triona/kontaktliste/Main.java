@@ -1,4 +1,4 @@
-package com.youtube.rest.status;
+package com.triona.kontaktliste;
 
 import model.Contact;
 
