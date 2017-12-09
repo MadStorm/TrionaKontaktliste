@@ -17,7 +17,7 @@ public class Contact {
 	}
 
 	public void setName(String name) {
-		if(isRegex(name)){
+		if(isLetters(name)){
 			this.name = name;
 		}
 		else
@@ -29,7 +29,7 @@ public class Contact {
 	}
 
 	public void setAddress(String address) {
-		if(isRegex(address)){
+		if(isLetters(address)){
 			this.address = address;
 		}
 		else{
@@ -45,34 +45,47 @@ public class Contact {
 		if(isNumber(phone)&& isNumberFormat(phone)){
 			this.phone = phone;
 		}
-		else{
-			System.out.println("Phone is not a Number");			
-		}
 	}
 	
 	public boolean isNumber(String string){
-		return string.matches("^\\d+$");
-	}
-	
-	public boolean isRegex(String string){
-		boolean isRegex;
-		try {
-			Pattern.compile(string);
-			return isRegex = true;
-		} catch (Exception e) {
-			return isRegex = false;
+		if(string.matches("^\\d+$")){
+			return true;
+		}
+		else{	
+			System.out.println("Error 404: Phone number does not only containt numbers");
+			return false;
 		}
 	}
+	
+//	public boolean isRegex(String string){
+//		boolean isRegex;
+//		try {
+//			Pattern.compile(string);
+//			return isRegex = true;
+//		} catch (Exception e) {
+//			System.out.println("Address");
+//			return isRegex = false;
+//		}
+//	}
 	
 	public boolean isNumberFormat(String string){
 		if(string.matches("^\\d{8}")){
 			return true;
 		}
 		else {
+			System.out.println("Error 404: Phone number is more or less than 8 digits");	
 			return false;
 		}
 	}
 	
-	
+	public boolean isLetters(String string){
+		if(string.matches("^[∆ÿ≈Ê¯ÂA-Za-z]+")){
+			return true;
+		}
+		else{	
+			System.out.println("Error 404: Text can only contain letters");
+			return false;
+		}
+	}
 	
 }
