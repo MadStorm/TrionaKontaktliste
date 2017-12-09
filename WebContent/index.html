@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link type="text/css" rel="stylesheet" href="resources/css/style.css" />
+<script type="text/javascript" langauge="javascript">
+    function UserAction() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "http://localhost:8080/com.youtube.rest/api/v1/status", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send();
+        var response = JSON.parse(xhttp.responseText);
+    }
+    </script>
+<meta charset="ISO-8859-1">
+<title>Triona Kontaktliste</title>
+</head>
+<body>
+<div class="logo">
+	<img src="resources/images/triona.gif" alt="Triona Logo">
+</div>
+
+<div class="content">
+
+	<div class="form">
+	<fieldset>
+	<legend>Triona Kontaktliste</legend>
+			<form method="post"
+				action="http://localhost:8080/TrionaKontaktliste/api/v1/restapi">
+					
+			<label for="name">Navn</label>
+			<input type="text" id="name" name="name" placeholder="Ditt navn..">
+		
+		    <label for="address">Adresse</label>
+		    <input type="text" id="address" name="address" placeholder="Adressen din..">
+				
+			<label for="phone">Telefonnummer</label>
+		    <input type="text" id="phone" name="phone" placeholder="Telefonnummeret ditt..">
+				
+			<button name="submit" type="submit" value="submit">Lagre</button>
+			</form>
+		</fieldset>
+	</div>
+</div>
+
+</body>
+</html>
