@@ -1,5 +1,7 @@
 package com.triona.kontaktliste;
 
+import java.io.IOException;
+
 import model.Contact;
 import model.SaveAndLoad;
 
@@ -49,6 +51,10 @@ public class Controller {
 		model.setPhone(phone);
 		
 		saveAndLoad.writeToFile(name, address, phone);
+	}
+	
+	public void loadContacts() throws IOException{
+		saveAndLoad.readFromFile(this);
 	}
 	
 }

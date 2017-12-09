@@ -1,5 +1,7 @@
 package com.triona.kontaktliste;
 
+import java.io.IOException;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import model.Contact;
@@ -53,11 +55,13 @@ public class RestAPI {
     public void hello( 
     		@FormParam("name") String name, 
     		@FormParam("address") String address, 
-    		@FormParam("phone") String phone) {
+    		@FormParam("phone") String phone) throws IOException {
 		
 		Controller controller = new Controller(new Contact(), new View());
 		controller.addContact(name, address, phone);
 		
 		controller.updateView();
+		
+		controller.loadContacts();
     }	
 }
