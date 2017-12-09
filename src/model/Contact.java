@@ -17,11 +17,12 @@ public class Contact {
 	}
 
 	public void setName(String name) {
-		if(isLetters(name)){
+		if(isLettersOnly(name)){
 			this.name = name;
 		}
-		else
+		else{
 			System.out.println("Name is not a String");
+		}
 	}
 
 	public String getAddress() {
@@ -29,7 +30,7 @@ public class Contact {
 	}
 
 	public void setAddress(String address) {
-		if(isLetters(address)){
+		if(isLettersAndNumbers(address)){
 			this.address = address;
 		}
 		else{
@@ -57,17 +58,6 @@ public class Contact {
 		}
 	}
 	
-//	public boolean isRegex(String string){
-//		boolean isRegex;
-//		try {
-//			Pattern.compile(string);
-//			return isRegex = true;
-//		} catch (Exception e) {
-//			System.out.println("Address");
-//			return isRegex = false;
-//		}
-//	}
-	
 	public boolean isNumberFormat(String string){
 		if(string.matches("^\\d{8}")){
 			return true;
@@ -78,9 +68,25 @@ public class Contact {
 		}
 	}
 	
-	public boolean isLetters(String string){
-		if(string.matches("^[ÆØÅæøåA-Za-z]+")){
-			return true;
+	public boolean isLettersAndNumbers(String string){
+		String numberRegex = ".*[0-9].*";
+		String lettersRegex = ".*[ÆØÅæøåA-Za-z].*";
+
+		if (string.matches(numberRegex) && string.matches(lettersRegex)) {
+		    return true;
+		}
+		else{	
+			System.out.println("Error 404: Text must contain letters and numbers");
+			return false;
+		}
+	}
+	
+	public boolean isLettersOnly(String string){
+		String lettersRegex = ".*[ÆØÅæøåA-Za-z].*";
+		String numberRegex = ".*[0-9].*";
+		
+		if (string.matches(lettersRegex) && !string.matches(numberRegex)) {
+		    return true;
 		}
 		else{	
 			System.out.println("Error 404: Text can only contain letters");
