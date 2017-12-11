@@ -7,9 +7,10 @@ public class Contact {
 	private String name;
 	private String address;
 	private String phone;
+	private Storage saveAndLoad;
 	
-	public Contact() {
-	
+	public Contact(Storage saveAndLoad) {
+		this.saveAndLoad = saveAndLoad;
 	}
 
 	public String getName() {
@@ -19,6 +20,7 @@ public class Contact {
 	public void setName(String name) {
 		if(isLettersOnly(name)){
 			this.name = name;
+			saveAndLoad.writeToFile(name);
 		}
 		else{
 			System.out.println("Name is not a String");
@@ -32,6 +34,7 @@ public class Contact {
 	public void setAddress(String address) {
 		if(isLettersAndNumbers(address)){
 			this.address = address;
+			saveAndLoad.writeToFile(address);
 		}
 		else{
 			System.out.println("Address is not a String");
@@ -45,6 +48,7 @@ public class Contact {
 	public void setPhone(String phone) {
 		if(isNumber(phone)&& isNumberFormat(phone)){
 			this.phone = phone;
+			saveAndLoad.writeToFile(phone);
 		}
 	}
 	
@@ -53,7 +57,7 @@ public class Contact {
 			return true;
 		}
 		else{	
-			System.out.println("Error 404: Phone number does not only containt numbers");
+			System.out.println("Error 404: Phone number does not only contain numbers");
 			return false;
 		}
 	}
