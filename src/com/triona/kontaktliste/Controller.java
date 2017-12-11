@@ -3,18 +3,18 @@ package com.triona.kontaktliste;
 import java.io.IOException;
 
 import model.Contact;
-import model.SaveAndLoad;
+import model.Storage;
 
 public class Controller {
 
 	private Contact model;
 	private View view;
-	private SaveAndLoad saveAndLoad;
+	private Storage saveAndLoad;
 	
 	public Controller(Contact model, View view){
 		this.model = model;
 		this.view = view;
-		saveAndLoad = new SaveAndLoad();
+		saveAndLoad = new Storage();
 	}
 	
 	public String getName() {
@@ -46,11 +46,9 @@ public class Controller {
 	}
 	
 	public void addContact(String name, String address, String phone){
-		model.setName(name);
-		model.setAddress(address);
-		model.setPhone(phone);
-		
-		saveAndLoad.writeToFile(name, address, phone);
+		setName(name);
+		setAddress(address);
+		setPhone(phone);
 	}
 	
 	public void loadContacts() throws IOException{
