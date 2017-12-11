@@ -5,11 +5,14 @@ import java.io.IOException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import model.Contact;
+import model.Storage;
 
 @Path("/v1/restapi")
 public class RestAPI {
 
 	private static Controller controller;
+	private static Storage saveAndLoad;
+	
 	
 	/*public static void main(String[] args) {
 		Contact model = new Contact();
@@ -57,10 +60,11 @@ public class RestAPI {
     		@FormParam("address") String address, 
     		@FormParam("phone") String phone) throws IOException {
 		
-		Controller controller = new Controller(new Contact(), new View());
+		saveAndLoad = new Storage();
+		controller = new Controller(new Contact(saveAndLoad), new View());
 		controller.addContact(name, address, phone);
 		
-		controller.updateView();
+		//controller.updateView();
 		
 		controller.loadContacts();
     }	
