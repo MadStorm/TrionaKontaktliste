@@ -1,46 +1,92 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<link type="text/css" rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<link type="text/css" rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" />
+<script
+	src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+<link type="text/css" rel="stylesheet"
+	href="https://cdn.datatables.net/responsive/2.2.1/css/responsive.bootstrap.css" />
+<script
+	src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.js"></script>
+
+<script id="getTable" type="text/javascript" language="javascript">
+	function updateTable(event) {
+
+		$.ajax({
+			method : "GET",
+			url : "http://localhost:8080/TrionaKontaktliste/api/v1/user",
+			success : function(msg) {
+				console.log(msg.Contacts);
+				$(".dataTable").DataTable().destroy();
+				$("#contactList").DataTable({
+					data : msg.Contacts,
+					responsive : true,
+					columns : [ {
+						title : "Name",
+						data : "name"
+					}, {
+						title : "Addrese",
+						data : "address"
+					}, {
+						title : "TLF",
+						data : "phone"
+					}, ]
+
+				})
+			},
+			error : function(msg) {
+				alert(msg);
+			}
+
+		});
+	}
+	updateTable();
+</script>
 <link type="text/css" rel="stylesheet" href="resources/css/style.css" />
-<script type="text/javascript" langauge="javascript">
-    function UserAction() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "http://localhost:8080/com.youtube.rest/api/v1/status", true);
-        xhttp.setRequestHeader("Content-type", "application/json");
-        xhttp.send();
-        var response = JSON.parse(xhttp.responseText);
-    }
-    </script>
 <meta charset="ISO-8859-1">
 <title>Triona Kontaktliste</title>
 </head>
 <body>
-<div class="logo">
-	<img src="resources/images/triona.gif" alt="Triona Logo">
-</div>
-
-<div class="content">
-
-	<div class="form">
-	<fieldset>
-	<legend>Triona Kontaktliste</legend>
-			<form method="post"
-				action="http://localhost:8080/TrionaKontaktliste/api/v1/restapi">
-					
-			<label for="name">Navn</label>
-			<input type="text" id="name" name="name" placeholder="Ditt navn..">
-		
-		    <label for="address">Adresse</label>
-		    <input type="text" id="address" name="address" placeholder="Adressen din..">
-				
-			<label for="phone">Telefonnummer</label>
-		    <input type="text" id="phone" name="phone" placeholder="Telefonnummeret ditt..">
-				
-			<button name="submit" type="submit" value="submit">Lagre</button>
-			</form>
-		</fieldset>
+	<div class="logo">
+		<img src="resources/images/triona.gif" alt="Triona Logo">
 	</div>
-</div>
+
+	<div class="content">
+
+		<div class="form">
+			<fieldset>
+				<legend>Triona Kontaktliste</legend>
+				<form method="post"
+					action="http://localhost:8080/TrionaKontaktliste/api/v1/user">
+
+					<label for="name">Navn</label> <input type="text" id="name"
+						name="name" placeholder="Ditt navn.."> <label
+						for="address">Adresse</label> <input type="text" id="address"
+						name="address" placeholder="Adressen din.."> <label
+						for="phone">Telefonnummer</label> <input type="text" id="phone"
+						name="phone" placeholder="Telefonnummeret ditt..">
+
+					<button name="submit" type="submit" value="submit">Lagre</button>
+				</form>
+				<button class='update' onclick="updateTable()">Oppdater</button>
+			</fieldset>
+		</div>
+		<div class="contacts" width="90%"
+			style="margin-left: auto; margin-right: auto;">
+			<table id="contactList"
+				class="datatable table table-striped table-bordered responsive display nowrap"
+				width="100%">
+			</table>
+		</div>
+	</div>
 
 </body>
 </html>

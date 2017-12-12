@@ -1,55 +1,55 @@
 package model;
 
+import java.io.FileNotFoundException;
 import java.util.regex.Pattern;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+import controller.Controller;
+
+
+
+@XmlRootElement(name = "Contacts")
 public class Contact {
 
 	private String name;
 	private String address;
 	private String phone;
-	private Storage saveAndLoad;
-	
-	public Contact(Storage saveAndLoad) {
-		this.saveAndLoad = saveAndLoad;
-	}
 
 	public String getName() {
 		return name;
 	}
-
-	public void setName(String name) {
+	
+	public boolean setName(String name) {
 		if(isLettersOnly(name)){
 			this.name = name;
-			saveAndLoad.writeToFile(name);
+			return true;
 		}
-		else{
-			System.out.println("Name is not a String");
-		}
+		return false;
 	}
 
 	public String getAddress() {
 		return address;
 	}
 
-	public void setAddress(String address) {
+	public boolean setAddress(String address) {
 		if(isLettersAndNumbers(address)){
 			this.address = address;
-			saveAndLoad.writeToFile(address);
+			return true;
 		}
-		else{
-			System.out.println("Address is not a String");
-		}
+		return false;
 	}
 
 	public String getPhone() {
 		return phone;
 	}
 
-	public void setPhone(String phone) {
+	public boolean setPhone(String phone) {
 		if(isNumber(phone)&& isNumberFormat(phone)){
 			this.phone = phone;
-			saveAndLoad.writeToFile(phone);
+			return true;
 		}
+		return false;
 	}
 	
 	public boolean isNumber(String string){
@@ -74,7 +74,8 @@ public class Contact {
 	
 	public boolean isLettersAndNumbers(String string){
 		String numberRegex = ".*[0-9].*";
-		String lettersRegex = ".*[∆ÿ≈Ê¯ÂA-Za-z].*";
+		//String lettersRegex = ".*[∆ÿ≈Ê¯ÂA-Za-z].*";
+		String lettersRegex = ".*[A-Za-z].*";
 
 		if (string.matches(numberRegex) && string.matches(lettersRegex)) {
 		    return true;
@@ -86,7 +87,8 @@ public class Contact {
 	}
 	
 	public boolean isLettersOnly(String string){
-		String lettersRegex = ".*[∆ÿ≈Ê¯ÂA-Za-z].*";
+		String lettersRegex = ".*[A-Za-z].*";
+		//String lettersRegex = ".*[∆ÿ≈Ê¯ÂA-Za-z].*";
 		String numberRegex = ".*[0-9].*";
 		
 		if (string.matches(lettersRegex) && !string.matches(numberRegex)) {
@@ -98,4 +100,5 @@ public class Contact {
 		}
 	}
 	
+
 }
