@@ -24,19 +24,28 @@
 			method : "GET",
 			url : "http://localhost:8080/TrionaKontaktliste/api/v1/user",
 			success : function(msg) {
-				console.log(msg.Contacts);
+				var contacts;
+				if (!msg) {
+					return;
+				}
+				var contacts = msg.Contacts;
+
+				if (!Array.isArray(contacts)) {
+					contacts = [ contacts ];
+				}
+				console.log(contacts);
 				$(".dataTable").DataTable().destroy();
 				$("#contactList").DataTable({
-					data : msg.Contacts,
+					data : contacts,
 					responsive : true,
 					columns : [ {
-						title : "Name",
+						title : "Navn",
 						data : "name"
 					}, {
-						title : "Addrese",
+						title : "Adresse",
 						data : "address"
 					}, {
-						title : "TLF",
+						title : "Telefonnummer",
 						data : "phone"
 					}, ]
 
@@ -74,13 +83,17 @@
 						for="phone">Telefonnummer</label> <input type="text" id="phone"
 						name="phone" placeholder="Telefonnummeret ditt..">
 
-					<button name="submit" type="submit" value="submit">Lagre</button>
+					<button id="submitForm" name="submit" type="submit" value="submit">Lagre
+						Kontakt</button>
 				</form>
-				<button class='update' onclick="updateTable()">Oppdater</button>
 			</fieldset>
 		</div>
+
+
 		<div class="contacts" width="90%"
 			style="margin-left: auto; margin-right: auto;">
+			<button class='update' onclick="updateTable()">Oppdater
+				Kontaktliste</button>
 			<table id="contactList"
 				class="datatable table table-striped table-bordered responsive display nowrap"
 				width="100%">

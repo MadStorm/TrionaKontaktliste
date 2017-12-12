@@ -2,11 +2,16 @@ package view;
 
 import java.util.List;
 
+/**
+ * Klassen her tar seg av printing av kontaktlisten
+ * @author Luka
+ *
+ */
 public class View {
 
 	public void printContactList(List<String> contactList, int contactListSize){
 		System.out.println("========================================");
-		System.out.println("NUMBER OF CONTACTS: "+contactListSize);
+		System.out.println("NUMBER OF CONTACTS: "+contactListSize/3);
 		System.out.println("CONTACT LIST: ");
 		System.out.println("========================================");
 		for (int i = 0; i < contactList.size(); i++) {
